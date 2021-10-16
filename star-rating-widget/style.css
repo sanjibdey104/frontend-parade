@@ -1,0 +1,92 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100%;
+  font-family: "Inter", sans-serif;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.widget {
+  width: 20rem;
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
+  border-radius: 0.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.fas {
+  color: gold;
+}
+
+svg {
+  stroke: black;
+}
+
+.rating-value {
+  text-align: center;
+  font-size: 1.3rem;
+  min-height: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.fa-star {
+  position: relative;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  transition: box-shadow 500ms ease-in-out;
+  border-radius: 0.3rem;
+  z-index: 10;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.fa-star::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 0.3rem;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), inset 0 0 5px rgba(0, 0, 0, 0.15);
+  transition: opacity 200ms ease-in-out;
+}
+
+.fa-star:hover::after,
+.fa-star:focus::after {
+  opacity: 1;
+}
+
+/* .fa-star::before {
+  content: attr(data-emoji);
+  position: absolute;
+  z-index: -10;
+  font-size: 1rem;
+  height: 1.2rem;
+  width: 1.2rem;
+} */
