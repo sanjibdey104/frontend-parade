@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comment Widget</title>
+    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Comment Widget with nesting</h2>
+
+      <div id="widget">
+        <form class="comment-form">
+          <input type="text" id="comment-input" placeholder="comment input" />
+          <input type="text" id="comment-author" placeholder="author name" />
+          <button type="submit">post comment</button>
+        </form>
+
+        <ul class="comment-list"></ul>
+      </div>
+    </div>
+  </body>
+</html>
