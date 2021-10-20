@@ -4,22 +4,30 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Comment Widget</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:regular,500,600,700"
+      rel="stylesheet"
+    />
     <script src="app.js" defer></script>
     <link rel="stylesheet" href="style.css" />
+    <title>Comment Widget</title>
   </head>
   <body>
     <div class="container">
-      <h2>Comment Widget with nesting</h2>
+      <h2>💬 Comment Widget ft. Recursion 🌀</h2>
 
       <div id="widget">
         <form class="comment-form">
-          <input type="text" id="comment-input" placeholder="comment input" />
-          <input type="text" id="comment-author" placeholder="author name" />
-          <button type="submit">post comment</button>
+          <textarea
+            name="comment-box-input"
+            id="comment-box-input"
+            cols="30"
+            rows="5"
+            placeholder="write a comment"
+          ></textarea>
+          <button type="submit" id="post">post comment 🚀</button>
         </form>
-
-        <ul class="comment-list"></ul>
+        <div class="comments-container"></div>
       </div>
     </div>
   </body>

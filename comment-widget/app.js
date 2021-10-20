@@ -1,8 +1,10 @@
 let commentForm = document.querySelector(".comment-form");
 let commentInput = document.querySelector("#comment-input");
+let commentBoxInput = document.querySelector("#comment-box-input");
 let commentList = document.querySelector(".comment-list");
-let commentListArr = [];
 let widget = document.querySelector("#widget");
+let commentsContainer = document.querySelector(".comments-container");
+let commentListArr = [];
 
 // let sampleCommentList = [
 //   {
@@ -35,17 +37,13 @@ let widget = document.querySelector("#widget");
 // ];
 
 commentForm.addEventListener("submit", (e) =>
-  addCommentToList(e, commentInput.value, widget)
+  addCommentToList(e, commentBoxInput.value, widget)
 );
 
 function addCommentToList(e, commentVal, parentEl) {
   e.preventDefault();
 
-  let commentObj = {};
-  let unikey = Math.floor(Math.random() * 10000);
-  commentObj.id = `comment-${unikey}`;
-  commentObj.comment = commentVal;
-  commentObj.replies = [];
+  let commentObj = generateCommentObj(commentVal);
 
   if (parentEl.getAttribute("id") === "widget") {
     commentListArr = [...commentListArr, commentObj];
@@ -65,14 +63,25 @@ function findCommentAndPush(obj, arr, parentEl) {
     });
 }
 
-function recurseAndRender(commentListArr, parentDomEl) {
-  Array.from(parentDomEl.children)[2] &&
-    Array.from(parentDomEl.children)[2].remove();
+function generateCommentObj(commentVal) {
+  let commentObj = {};
+  let unikey = Math.floor(Math.random() * 10000);
+  commentObj.id = `comment-${unikey}`;
+  commentObj.comment = commentVal;
+  commentObj.replies = [];
+  return commentObj;
+}
+
+function recurseAndRender(commentsArr, parentDomEl) {
+  if (parentDomEl.getAttribute("id") === "widget") {
+    parentDomEl = commentsContainer;
+    parentDomEl.innerHTML = "";
+  }
 
   let newCommentList = document.createElement("ul");
   parentDomEl.appendChild(newCommentList);
 
-  commentListArr.forEach((element) => {
+  commentsArr.forEach((element) => {
     let newCommentItem = CommentComponent(element);
     newCommentList.appendChild(newCommentItem);
 
@@ -89,12 +98,12 @@ function CommentComponent(commentObj) {
   // reply button
   let replyBtn = document.createElement("button");
   replyBtn.id = "reply-btn";
-  replyBtn.innerText = "Reply";
+  replyBtn.innerText = "reply 📣";
   replyBtn.setAttribute("id", commentObj.id);
 
   let deleteCommentBtn = document.createElement("button");
   deleteCommentBtn.setAttribute("id", "delete-comment");
-  deleteCommentBtn.innerText = "Delete";
+  deleteCommentBtn.innerText = "delete 🔥";
 
   replyBtn.addEventListener("click", renderReplyForm);
   deleteCommentBtn.addEventListener("click", deleteComment);
@@ -110,13 +119,26 @@ function renderReplyForm(e) {
   let targetCommentEl = e.target.parentElement;
 
   let replyForm = document.createElement("form");
-  let replyInput = document.createElement("input");
+  replyForm.classList.add("reply-form");
+  let replyInput = document.createElement("textarea");
+  let controls = document.createElement("div");
+  controls.classList.add("controls");
   let replySubmitBtn = document.createElement("button");
-  replySubmitBtn.innerText = "post reply";
+  replySubmitBtn.innerText = "post reply 🚀";
+  let cancelReplyBtn = document.createElement("button");
+  cancelReplyBtn.type = "button";
+  cancelReplyBtn.innerHTML = "cancel ❌";
 
   replyForm.appendChild(replyInput);
-  replyForm.appendChild(replySubmitBtn);
+  controls.appendChild(replySubmitBtn);
+  controls.appendChild(cancelReplyBtn);
+  replyForm.appendChild(controls);
   targetCommentEl.appendChild(replyForm);
+
+  cancelReplyBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    replyForm.remove();
+  });
 
   replyForm.addEventListener("submit", (e) => {
     addCommentToList(e, replyInput.value, targetCommentEl);
